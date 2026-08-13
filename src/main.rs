@@ -59,7 +59,7 @@ async fn main() -> Result<(), String> {
         Err(e) => return Err(e.to_string()),
     };
 
-    println!("Reverse Proxy: {}", &config.host_and_port);
+    println!("Reverse proxy: {}", &config.host_and_port);
 
     loop {
         let (socket, _remote_addr) = match listener.accept().await {
