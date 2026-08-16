@@ -33,7 +33,7 @@ pub async fn from_filepath(filepath: &PathBuf) -> Result<Config, Error> {
         _ => {
             return Err(Error::Custom(
                 "parent directory of config not found".to_string(),
-            ))
+            ));
         }
     };
 

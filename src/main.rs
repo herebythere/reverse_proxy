@@ -15,9 +15,6 @@ mod service;
 
 use crate::errors::Error;
 
-// Needs to be errors
-// create key errors
-
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     // create config
@@ -26,7 +23,7 @@ async fn main() -> Result<(), Error> {
         None => {
             return Err(Error::Custom(
                 "argument error: argv[0] config path not provided".to_string(),
-            ))
+            ));
         }
     };
 

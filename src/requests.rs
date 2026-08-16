@@ -3,7 +3,7 @@ use http_body_util::combinators::BoxBody;
 use http_body_util::{BodyExt, Full};
 use hyper::body::Incoming;
 use hyper::client::conn::{http1, http2};
-use hyper::{header, Request, Response, StatusCode, Uri};
+use hyper::{Request, Response, StatusCode, Uri, header};
 use hyper_util::rt::{TokioExecutor, TokioIo};
 use native_tls::TlsConnector;
 use tokio::net::TcpStream;
@@ -91,7 +91,7 @@ pub async fn send_http1_request(
             return create_fallback_response(
                 &StatusCode::SERVICE_UNAVAILABLE,
                 &UPSTREAM_HANDSHAKE_ERROR,
-            )
+            );
         }
     };
 
@@ -126,7 +126,7 @@ pub async fn send_http1_tls_request(
             return create_fallback_response(
                 &StatusCode::SERVICE_UNAVAILABLE,
                 &UPSTREAM_HANDSHAKE_ERROR,
-            )
+            );
         }
     };
 
@@ -160,7 +160,7 @@ pub async fn send_http2_request(
             return create_fallback_response(
                 &StatusCode::SERVICE_UNAVAILABLE,
                 &UPSTREAM_HANDSHAKE_ERROR,
-            )
+            );
         }
     };
 
@@ -195,7 +195,7 @@ pub async fn send_http2_tls_request(
             return create_fallback_response(
                 &StatusCode::SERVICE_UNAVAILABLE,
                 &UPSTREAM_HANDSHAKE_ERROR,
-            )
+            );
         }
     };
 
