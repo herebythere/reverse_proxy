@@ -13,4 +13,5 @@ tokio = { workspace = true }
 tokio-native-tls = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-response = { path = "../response" }
+http-body-util = { workspace = true }
+bytes = { workspace = true }

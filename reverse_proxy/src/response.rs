@@ -6,7 +6,7 @@ use hyper::{header, Request, Response, StatusCode, Uri};
 use std::collections::HashMap;
 use std::sync::Arc;
 
-mod requests;
+use crate::requests;
 
 pub type BoxedResponse = Response<BoxBody<Bytes, hyper::Error>>;
 

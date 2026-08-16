@@ -4,6 +4,8 @@ use std::path;
 use std::path::PathBuf;
 use tokio::fs;
 
+use crate::errors::Error;
+
 #[derive(Clone, Serialize, Deserialize, Debug)]
 pub struct Config {
     pub host_and_port: String,
@@ -15,25 +17,29 @@ pub struct Config {
 
 // Serde path fs errors in one function
 
-pub async fn from_filepath(filepath: &PathBuf) -> Result<Config, String> {
+pub async fn from_filepath(filepath: &PathBuf) -> Result<Config, Error> {
     let config_path = match path::absolute(filepath) {
         Ok(pb) => pb,
-        Err(e) => return Err(e.to_string()),
+        Err(e) => return Err(Error::Io(e)),
     };
 
     let json_as_str = match fs::read_to_string(&config_path).await {
         Ok(r) => r,
-        Err(e) => return Err(e.to_string()),
+        Err(e) => return Err(Error::Io(e)),
     };
 
     let parent_dir = match config_path.parent() {
         Some(p) => p.to_path_buf(),
-        _ => return Err("parent directory of config not found".to_string()),
+        _ => {
+            return Err(Error::Custom(
+                "parent directory of config not found".to_string(),
+            ))
+        }
     };
 
     let mut config: Config = match serde_json::from_str(&json_as_str) {
         Ok(j) => j,
-        Err(e) => return Err(e.to_string()),
+        Err(e) => return Err(Error::SerdeJson(e)),
     };
 
     config.key_filepath = parent_dir.join(&config.key_filepath);

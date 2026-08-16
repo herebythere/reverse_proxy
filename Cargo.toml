@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["response", "reverse_proxy"]
+members = ["reverse_proxy"]
 
 [workspace.dependencies]
 bytes = "1.11"
