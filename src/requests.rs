@@ -17,7 +17,6 @@ fn get_host_and_authority<'a>(uri: &Uri) -> Result<(String, String), &'a str> {
     let host = match uri.host() {
         Some(h) => h.to_string(),
         _ => return Err("failed to retrieve downstream URI from upstream URI"),
-        // _ => return Err(Error::Custom("failed to retrieve downstream URI from upstream URI".to_string())),
     };
 
     let port = match uri.port() {

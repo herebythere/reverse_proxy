@@ -64,7 +64,7 @@ async fn main() -> Result<(), Error> {
         Err(e) => return Err(Error::Io(e)),
     };
 
-    println!("Reverse Proxy: {}", &config.host_and_port);
+    println!("Reverse proxy @ {}", &config.host_and_port);
 
     loop {
         let (socket, _remote_addr) = match listener.accept().await {
