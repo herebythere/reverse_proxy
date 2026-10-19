@@ -1,4 +1,4 @@
-use crate::config::Config;
+use crate::config::{Address, Config};
 use crate::errors::Error;
 use crate::response::{AddressMap, AddressParams};
 use hyper::Uri;
@@ -20,11 +20,12 @@ pub fn create_address_map(config: &Config) -> Result<AddressMap, Error> {
 
 fn add_addresses_to_map(
     url_map: &mut AddressMap,
-    addresses: &Vec<(String, String)>,
+    addresses: &Vec<Address>,
     is_dangerous: bool,
 ) -> Result<(), Error> {
-    for (source_str, target_str) in addresses {
-        let source_uri = match Uri::try_from(source_str) {
+    for address in addresses {
+        let Address { incoming, outgoing } = address;
+        let source_uri = match Uri::try_from(incoming) {
             Ok(uri) => uri,
             Err(e) => return Err(Error::Uri(e)),
         };
@@ -38,7 +39,7 @@ fn add_addresses_to_map(
             }
         };
 
-        let uri = match Uri::try_from(target_str) {
+        let uri = match Uri::try_from(outgoing) {
             Ok(uri) => uri,
             Err(e) => return Err(Error::Uri(e)),
         };
