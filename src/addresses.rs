@@ -25,12 +25,12 @@ fn add_addresses_to_map(
 ) -> Result<(), Error> {
     for address in addresses {
         let Address { incoming, outgoing } = address;
-        let source_uri = match Uri::try_from(incoming) {
+        let incoming_uri = match Uri::try_from(incoming) {
             Ok(uri) => uri,
             Err(e) => return Err(Error::Uri(e)),
         };
 
-        let source_host = match source_uri.host() {
+        let incoming_host = match incoming_uri.host() {
             Some(h) => h,
             _ => {
                 return Err(Error::Custom(
@@ -44,7 +44,10 @@ fn add_addresses_to_map(
             Err(e) => return Err(Error::Uri(e)),
         };
 
-        url_map.insert(source_host.to_string(), AddressParams { uri, is_dangerous });
+        url_map.insert(
+            incoming_host.to_string(),
+            AddressParams { uri, is_dangerous },
+        );
     }
 
     Ok(())

@@ -1,10 +1,9 @@
+use crate::errors::Error;
 use serde::{Deserialize, Serialize};
 use serde_json;
 use std::path;
 use std::path::PathBuf;
 use tokio::fs;
-
-use crate::errors::Error;
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
 pub struct Address {

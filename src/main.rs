@@ -1,3 +1,4 @@
+use crate::errors::Error;
 use hyper_util::rt::{TokioExecutor, TokioIo};
 use hyper_util::server::conn::auto::Builder;
 use native_tls::Identity;
@@ -12,8 +13,6 @@ mod errors;
 mod requests;
 mod response;
 mod service;
-
-use crate::errors::Error;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {

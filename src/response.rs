@@ -1,3 +1,4 @@
+use crate::requests;
 use bytes::Bytes;
 use http_body_util::combinators::BoxBody;
 use hyper::body::Incoming;
@@ -5,8 +6,6 @@ use hyper::http::uri::InvalidUriParts;
 use hyper::{Request, Response, StatusCode, Uri, header};
 use std::collections::HashMap;
 use std::sync::Arc;
-
-use crate::requests;
 
 pub type BoxedResponse = Response<BoxBody<Bytes, hyper::Error>>;
 

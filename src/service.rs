@@ -18,6 +18,31 @@ impl Service<Request<Incoming>> for Svc {
 
     fn call(&self, req: Request<Incoming>) -> Self::Future {
         let addresses = self.addresses.clone();
+
+        // get address first then send to boxed response
+        // instead of copying the entire address book
+
+        // let host = match get_host(&req) {
+        //     Some(uri) => uri,
+        //     _ => {
+        //         return requests::create_fallback_response(
+        //             &StatusCode::BAD_REQUEST,
+        //             &URI_FROM_REQUEST_ERROR,
+        //         );
+        //     }
+        // };
+
+        // // get target uri
+        // let address_params = match addresses.get(&host) {
+        //     Some(params) => params,
+        //     _ => {
+        //         return requests::create_fallback_response(
+        //             &StatusCode::BAD_GATEWAY,
+        //             &URI_FROM_REQUEST_ERROR,
+        //         );
+        //     }
+        // };
+
         Box::pin(async move { build_response(req, addresses).await })
     }
 }
