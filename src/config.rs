@@ -1,21 +1,24 @@
+use crate::errors::Error;
 use serde::{Deserialize, Serialize};
 use serde_json;
 use std::path;
 use std::path::PathBuf;
 use tokio::fs;
 
-use crate::errors::Error;
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct Address {
+    pub incoming: String,
+    pub outgoing: String,
+}
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
 pub struct Config {
     pub host_and_port: String,
     pub key_filepath: PathBuf,
     pub cert_filepath: PathBuf,
-    pub addresses: Vec<(String, String)>,
-    pub dangerous_self_signed_addresses: Option<Vec<(String, String)>>,
+    pub addresses: Vec<Address>,
+    pub dangerous_self_signed_addresses: Option<Vec<Address>>,
 }
-
-// Serde path fs errors in one function
 
 pub async fn from_filepath(filepath: &PathBuf) -> Result<Config, Error> {
     let config_path = match path::absolute(filepath) {

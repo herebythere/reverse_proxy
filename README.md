@@ -31,12 +31,14 @@ All filepaths can be absolute or relative to the config filepath.
   "host_and_port": "<string>",
   "key_filepath": "<string>",
   "cert_filepath": "<string>",
-  "addresses": [
-    ["<origin_address>", "<target_address>"]
-  ],
-  "dangerous_self_signed_addresses": [
-    ["<origin_address>", "<target_address>"]
-  ]
+  "addresses": [{
+    "incoming": "origin_address",
+    "outgoing": "destination_address",
+  }],
+  "dangerous_self_signed_addresses": [{
+    "incoming": "origin_address",
+    "outgoing": "destination_address",
+  }]
 }
 ```
 
