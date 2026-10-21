@@ -1,11 +1,10 @@
 use crate::requests;
 use crate::response;
 use crate::response::{AddressMap, BoxedResponse, build_response};
-use hyper::{Request, StatusCode, Uri, header};
-
 use hyper::body::Incoming;
 use hyper::http;
 use hyper::service::Service;
+use hyper::{Request, StatusCode, Uri, header};
 use std::future::Future;
 use std::pin::Pin;
 use std::sync::Arc;
