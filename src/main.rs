@@ -21,7 +21,7 @@ async fn main() -> Result<(), Error> {
         Some(a) => path::PathBuf::from(a),
         None => {
             return Err(Error::Config(
-                "argument error: argv[0] config path not provided".to_string(),
+                "Config path not provided at argv[0]".to_string(),
             ));
         }
     };
