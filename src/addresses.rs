@@ -34,7 +34,7 @@ fn add_addresses_to_map(
             Some(h) => h,
             _ => {
                 return Err(Error::Addresses(
-                    "could not parse host from source uri".to_string(),
+                    "Could not parse host from source uri".to_string(),
                 ));
             }
         };
