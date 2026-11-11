@@ -1,5 +1,4 @@
 use crate::requests;
-use crate::response;
 use crate::response::{AddressMap, BoxedResponse, build_response};
 use hyper::body::Incoming;
 use hyper::http;
@@ -8,6 +7,8 @@ use hyper::{Request, StatusCode, Uri, header};
 use std::future::Future;
 use std::pin::Pin;
 use std::sync::Arc;
+
+pub const URI_FROM_REQUEST_ERROR: &str = "Unnable to parse upstream URI from request";
 
 pub struct Svc {
     pub addresses: Arc<AddressMap>,
@@ -27,7 +28,7 @@ impl Service<Request<Incoming>> for Svc {
                 return Box::pin(async move {
                     requests::create_fallback_response(
                         &StatusCode::BAD_REQUEST,
-                        &response::URI_FROM_REQUEST_ERROR,
+                        URI_FROM_REQUEST_ERROR,
                     )
                 });
             }
@@ -40,7 +41,7 @@ impl Service<Request<Incoming>> for Svc {
                 return Box::pin(async move {
                     requests::create_fallback_response(
                         &StatusCode::BAD_GATEWAY,
-                        &response::URI_FROM_REQUEST_ERROR,
+                        URI_FROM_REQUEST_ERROR,
                     )
                 });
             }
