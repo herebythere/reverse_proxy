@@ -20,7 +20,7 @@ async fn main() -> Result<(), Error> {
     let args = match env::args().nth(1) {
         Some(a) => path::PathBuf::from(a),
         None => {
-            return Err(Error::Custom(
+            return Err(Error::Config(
                 "argument error: argv[0] config path not provided".to_string(),
             ));
         }
