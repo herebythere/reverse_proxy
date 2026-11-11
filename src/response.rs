@@ -6,10 +6,6 @@ use hyper::http::uri::InvalidUriParts;
 use hyper::{Request, Response, StatusCode, Uri};
 use std::collections::HashMap;
 
-pub type BoxedResponse = Response<BoxBody<Bytes, hyper::Error>>;
-
-pub const URI_FROM_REQUEST_ERROR: &str = "unable to parse upstream URI from request";
-pub const UPSTREAM_URI_ERROR: &str = "falied to update request with upstream URI";
 
 #[derive(Clone, Debug)]
 pub struct AddressParams {
@@ -18,6 +14,9 @@ pub struct AddressParams {
 }
 
 pub type AddressMap = HashMap<String, AddressParams>;
+pub type BoxedResponse = Response<BoxBody<Bytes, hyper::Error>>;
+
+pub const UPSTREAM_URI_ERROR: &str = "Falied to update request with upstream URI";
 
 fn update_request_with_dest_uri(
     mut req: Request<Incoming>,

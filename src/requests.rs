@@ -16,7 +16,7 @@ const FAILED_TO_PROCESS_REQUEST_ERROR: &str = "failed to process request";
 fn get_host_and_authority<'a>(uri: &Uri) -> Result<(String, String), &'a str> {
     let host = match uri.host() {
         Some(h) => h.to_string(),
-        _ => return Err("failed to retrieve downstream URI from upstream URI"),
+        _ => return Err("Failed to foward incoming URI to outgoing URI"),
     };
 
     let port = match uri.port() {
@@ -40,7 +40,7 @@ fn get_host_and_authority<'a>(uri: &Uri) -> Result<(String, String), &'a str> {
 async fn create_tcp_stream<'a>(addr: &str) -> Result<TokioIo<TcpStream>, &'a str> {
     match TcpStream::connect(&addr).await {
         Ok(client_stream) => Ok(TokioIo::new(client_stream)),
-        _ => Err("failed to establish tcp connection"),
+        _ => Err("Failed to establish tcp connection"),
     }
 }
 
@@ -54,18 +54,18 @@ async fn create_tls_stream<'a>(
 
     let cx = match builder.build() {
         Ok(c) => c,
-        _ => return Err("failed to build TLS connection"),
+        _ => return Err("Failed to build TLS connection"),
     };
 
     let tls_connector = tokio_native_tls::TlsConnector::from(cx);
     let client_stream = match TcpStream::connect(addr).await {
         Ok(s) => s,
-        _ => return Err("failed to establish TCP connection"),
+        _ => return Err("Failed to establish TCP connection"),
     };
 
     let tls_stream = match tls_connector.connect(host, client_stream).await {
         Ok(s) => TokioIo::new(s),
-        _ => return Err("failed to establish TLS connection"),
+        _ => return Err("TLS connection failed"),
     };
 
     Ok(tls_stream)

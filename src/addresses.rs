@@ -33,8 +33,8 @@ fn add_addresses_to_map(
         let incoming_host = match incoming_uri.host() {
             Some(h) => h,
             _ => {
-                return Err(Error::Custom(
-                    "could not parse host from source uri".to_string(),
+                return Err(Error::Addresses(
+                    "Could not parse host from source uri".to_string(),
                 ));
             }
         };
