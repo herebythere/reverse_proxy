@@ -16,7 +16,7 @@ const FAILED_TO_PROCESS_REQUEST_ERROR: &str = "failed to process request";
 fn get_host_and_authority<'a>(uri: &Uri) -> Result<(String, String), &'a str> {
     let host = match uri.host() {
         Some(h) => h.to_string(),
-        _ => return Err("Failed to retrieve downstream URI from upstream URI"),
+        _ => return Err("Failed to foward incoming URI to outgoing URI"),
     };
 
     let port = match uri.port() {

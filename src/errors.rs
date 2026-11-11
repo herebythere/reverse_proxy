@@ -17,12 +17,12 @@ pub enum Error {
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            Error::Addresses(err) => write!(f, "[addresses] {}", err),
-            Error::Config(err) => write!(f, "[config] {}", err),
-            Error::Io(err) => write!(f, "[io] {}", err),
-            Error::NativeTls(err) => write!(f, "[native_tls] {}", err),
-            Error::SerdeJson(err) => write!(f, "[serde_json] {}", err),
-            Error::Uri(err) => write!(f, "[uri] {}", err),
+            Error::Addresses(err) => write!(f, "[Error::Addresses] {}", err),
+            Error::Config(err) => write!(f, "[Error::Config] {}", err),
+            Error::Io(err) => write!(f, "[Error::Io] {}", err),
+            Error::NativeTls(err) => write!(f, "[Error::Native_tls] {}", err),
+            Error::SerdeJson(err) => write!(f, "[Error::Serde_json] {}", err),
+            Error::Uri(err) => write!(f, "[Error::Uri] {}", err),
         }
     }
 }
